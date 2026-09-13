@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Tên bạn] — Frontend Developer</title>
+<meta name="description" content="CV / Portfolio của [Tên bạn], Frontend Developer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top">[ten-ban]</a>
+    <ul class="nav-links">
+      <li><a href="#about">Giới thiệu</a></li>
+      <li><a href="#skills">Kỹ năng</a></li>
+      <li><a href="#experience">Kinh nghiệm</a></li>
+      <li><a href="#projects">Dự án</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap" id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" style="border-top:none;">
+    <div>
+      <p class="hero-role">frontend developer</p>
+      <h1>[Tên bạn]<br>xây dựng giao diện web.</h1>
+      <p class="tagline">
+        [Một câu mô tả ngắn gọn về bạn — ví dụ: 3 năm kinh nghiệm xây dựng
+        giao diện web nhanh, dễ tiếp cận với React và TypeScript.]
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#contact">Liên hệ với tôi</a>
+        <a class="btn" href="/cv-ten-ban.pdf" target="_blank" rel="noopener">Tải CV (PDF)</a>
+      </div>
+    </div>
+
+    <div class="code-panel">
+<pre><span class="ln">1</span><span class="kw">const</span> developer = {
+<span class="ln">2</span>  <span class="prop">name</span>: <span class="str">"Tên Bạn"</span>,
+<span class="ln">3</span>  <span class="prop">role</span>: <span class="str">"Frontend Developer"</span>,
+<span class="ln">4</span>  <span class="prop">location</span>: <span class="str">"Đà Nẵng, VN"</span>,
+<span class="ln">5</span>  <span class="prop">stack</span>: [<span class="str">"React"</span>, <span class="str">"TypeScript"</span>],
+<span class="ln">6</span>  <span class="prop">openTo</span>: <span class="str">"cơ hội mới"</span>,
+<span class="ln">7</span>};</pre>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <p class="eyebrow">01</p>
+    <h2>Giới thiệu</h2>
+    <p>
+      [Viết 2–4 câu về hành trình làm frontend của bạn: bạn bắt đầu thế nào,
+      bạn thích làm việc với loại sản phẩm nào, và điều gì khiến bạn khác biệt.
+      Ví dụ: <strong>Tôi tập trung vào việc biến thiết kế thành giao diện
+      mượt mà, dễ dùng và chạy nhanh</strong>, đồng thời luôn chú ý đến chi tiết nhỏ
+      trong trải nghiệm người dùng.]
+    </p>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills">
+    <p class="eyebrow">02</p>
+    <h2>Kỹ năng</h2>
+
+    <div class="skill-group">
+      <div class="label">// ngôn ngữ</div>
+      <div class="skill-tags">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>TypeScript</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="label">// framework &amp; thư viện</div>
+      <div class="skill-tags">
+        <span>React</span><span>Vue</span><span>Next.js</span><span>Tailwind CSS</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="label">// công cụ &amp; quy trình</div>
+      <div class="skill-tags">
+        <span>Git</span><span>Figma</span><span>Vite</span><span>Jest</span><span>CI/CD</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <p class="eyebrow">03</p>
+    <h2>Kinh nghiệm làm việc</h2>
+
+    <div class="timeline">
+      <div class="job">
+        <span class="period">2023 — Hiện tại</span>
+        <h3>[Chức danh, ví dụ: Frontend Developer]</h3>
+        <span class="company">[Tên công ty]</span>
+        <ul>
+          <li>[Việc bạn đã làm và kết quả — ví dụ: xây dựng lại trang chủ, giảm 30% thời gian tải]</li>
+          <li>[Một thành tích khác, nêu con số cụ thể nếu có]</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <span class="period">2021 — 2023</span>
+        <h3>[Chức danh]</h3>
+        <span class="company">[Tên công ty]</span>
+        <ul>
+          <li>[Mô tả công việc chính]</li>
+          <li>[Kết quả đạt được]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <p class="eyebrow">04</p>
+    <h2>Dự án nổi bật</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>[Tên dự án 1]</h3>
+        <a class="link" href="#" target="_blank" rel="noopener">xem demo ↗</a>
+      </div>
+      <p>[Mô tả ngắn: dự án này giải quyết vấn đề gì, vai trò của bạn là gì.]</p>
+      <div class="stack">
+        <span>React</span><span>TypeScript</span><span>Tailwind</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>[Tên dự án 2]</h3>
+        <a class="link" href="#" target="_blank" rel="noopener">xem mã nguồn ↗</a>
+      </div>
+      <p>[Mô tả ngắn về dự án thứ hai và kết quả cụ thể nếu có.]</p>
+      <div class="stack">
+        <span>Vue</span><span>Vite</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EDUCATION ================= -->
+  <section id="education">
+    <p class="eyebrow">05</p>
+    <h2>Học vấn</h2>
+
+    <div class="edu-item">
+      <span class="period">2018 — 2022</span>
+      <h3>[Tên trường]</h3>
+      <span class="school">[Ngành học]</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= CONTACT ================= -->
+<footer id="contact">
+  <div class="wrap">
+    <h2>Cùng làm việc nhé.</h2>
+    <p>[Một câu mời liên hệ ngắn gọn — ví dụ: Nếu bạn đang tìm một frontend developer, hãy nhắn cho tôi.]</p>
+    <div class="contact-links">
+      <a href="mailto:ban@example.com">ban@example.com</a>
+      <a href="https://github.com/username" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/username" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="fine-print">© 2026 [Tên bạn]. Được build bằng HTML/CSS thuần, host trên GitHub Pages.</p>
+  </div>
+</footer>
+
+</body>
+</html>
