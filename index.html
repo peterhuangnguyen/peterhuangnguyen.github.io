@@ -3,179 +3,551 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[Tên bạn] — Frontend Developer</title>
-<meta name="description" content="CV / Portfolio của [Tên bạn], Frontend Developer.">
+<script>
+  (function(){
+    try{
+      var savedTheme = localStorage.getItem('cv-theme');
+      var theme = savedTheme;
+      if(!theme){
+        var h = new Date().getHours();
+        theme = (h >= 6 && h < 18) ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+      var savedLang = localStorage.getItem('cv-lang') || 'vi';
+      document.documentElement.setAttribute('lang', savedLang);
+    }catch(e){ document.documentElement.setAttribute('data-theme','dark'); }
+  })();
+</script>
+<title>Ha Nam Huynh Nguyen — Frontend Developer</title>
+<meta name="description" content="CV / Portfolio của Ha Nam Huynh Nguyen, Frontend Developer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css">
+<style>
+  :root{
+    --serif: 'Newsreader', serif;
+    --sans: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --max: 760px;
+  }
+
+  [data-theme="dark"]{
+    --bg: #12151c;
+    --surface: #191d26;
+    --border: #2a2f3b;
+    --text: #ece8e1;
+    --text-muted: #8d93a3;
+    --accent: #e8a855;
+    --accent-2: #5fa89e;
+    --btn-text-on-accent: #14161d;
+  }
+
+  [data-theme="light"]{
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --border: #ded9cc;
+    --text: #201d17;
+    --text-muted: #6b6a63;
+    --accent: #b8721c;
+    --accent-2: #2a746b;
+    --btn-text-on-accent: #fffaf2;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  ::selection{ background: var(--accent); color: var(--btn-text-on-accent); }
+  a { color: inherit; }
+  .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+  header.nav{
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  header.nav.open{ position: sticky; }
+  .nav-inner{ position: relative; }
+  .nav-inner{
+    max-width: var(--max); margin: 0 auto; padding: 14px 20px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .nav-logo{ font-family: var(--mono); font-size: 0.9rem; color: var(--accent); text-decoration: none; flex-shrink: 0; }
+  .nav-links{ display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a{ font-size: 0.9rem; text-decoration: none; color: var(--text-muted); transition: color .15s ease; }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-right{ display: flex; align-items: center; gap: 10px; margin-left: auto; }
+  .nav-controls{ display: flex; align-items: center; gap: 8px; }
+  .ctrl-btn{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 11px;
+    cursor: pointer;
+    transition: border-color .15s ease, color .15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ctrl-btn:hover{ border-color: var(--accent-2); color: var(--accent-2); }
+  .ctrl-btn.theme-btn{ font-size: 1rem; padding: 7px 10px; line-height: 1; }
+  .menu-btn{
+    display: none;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 36px; height: 36px;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn span, .menu-btn span::before, .menu-btn span::after{
+    display: block; position: relative;
+    width: 16px; height: 1.5px; background: var(--text);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .menu-btn span::before, .menu-btn span::after{ content: ""; position: absolute; left: 0; }
+  .menu-btn span::before{ top: -5px; }
+  .menu-btn span::after{ top: 5px; }
+  header.nav.open .menu-btn span{ background: transparent; }
+  header.nav.open .menu-btn span::before{ top: 0; transform: rotate(45deg); }
+  header.nav.open .menu-btn span::after{ top: 0; transform: rotate(-45deg); }
+
+  .hero{ padding: 88px 0 72px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+  .hero-role{ font-family: var(--mono); font-size: 0.85rem; color: var(--accent-2); margin: 0 0 18px; }
+  .hero-role::before{ content: "// "; color: var(--text-muted); }
+  .hero h1{ font-family: var(--serif); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.08; margin: 0 0 20px; }
+  .hero p.tagline{ color: var(--text-muted); font-size: 1.05rem; max-width: 46ch; margin: 0 0 30px; }
+  .hero-actions{ display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn{ display: inline-block; padding: 11px 20px; border: 1px solid var(--border); text-decoration: none; font-size: 0.92rem; color: var(--text); transition: border-color .15s ease, color .15s ease; }
+  .btn.primary{ background: var(--accent); border-color: var(--accent); color: var(--btn-text-on-accent); font-weight: 500; }
+  .btn.primary:hover{ opacity: .9; }
+  .btn:not(.primary):hover{ border-color: var(--accent-2); color: var(--accent-2); }
+
+  .code-panel{
+    background: #191d26; border: 1px solid #2a2f3b;
+    font-family: var(--mono); font-size: 0.82rem; line-height: 1.7;
+    padding: 22px 24px; overflow-x: auto;
+    opacity: 0; transform: translateY(8px);
+    animation: reveal .6s ease forwards .15s;
+  }
+  .code-panel .ln{ color: #4a5064; user-select: none; display: inline-block; width: 1.4em; }
+  .code-panel .kw{ color: #5fa89e; }
+  .code-panel .str{ color: #e8a855; }
+  .code-panel .prop{ color: #9fb4e8; }
+  .code-panel pre{ color: #ece8e1; margin: 0; }
+  @keyframes reveal{ to{ opacity: 1; transform: translateY(0); } }
+
+  section{ padding: 56px 0; border-top: 1px solid var(--border); }
+  section .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted); margin: 0 0 6px; }
+  section h2{ font-family: var(--serif); font-weight: 500; font-size: 1.7rem; margin: 0 0 28px; }
+
+  #about p{ max-width: 62ch; color: var(--text-muted); }
+  #about p strong{ color: var(--text); font-weight: 500; }
+  #about p.quote{ font-family: var(--serif); font-style: italic; color: var(--accent); margin-top: 14px; }
+
+  .skill-group{ margin-bottom: 22px; }
+  .skill-group:last-child{ margin-bottom: 0; }
+  .skill-group .label{ font-family: var(--mono); font-size: 0.82rem; color: var(--accent-2); margin-bottom: 10px; }
+  .skill-tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tags span{ font-size: 0.85rem; padding: 5px 12px; border: 1px solid var(--border); color: var(--text-muted); }
+
+  .timeline{ position: relative; padding-left: 26px; }
+  .timeline::before{ content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: var(--border); }
+  .job{ position: relative; margin-bottom: 34px; }
+  .job:last-child{ margin-bottom: 0; }
+  .job::before{ content: ""; position: absolute; left: -30px; top: 6px; width: 7px; height: 7px; background: var(--accent); }
+  .job .period{ font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px; }
+  .job h3{ font-family: var(--serif); font-weight: 500; font-size: 1.15rem; margin: 0 0 2px; }
+  .job .company{ color: var(--accent-2); font-size: 0.92rem; margin-bottom: 10px; display: block; }
+  .job ul{ margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 0.95rem; }
+  .job li{ margin-bottom: 4px; }
+  .job .subrole{ margin-top: 14px; margin-bottom: 8px; }
+  .job .subrole-title{ font-size: 0.92rem; color: var(--text); font-weight: 500; margin-bottom: 4px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+
+  .edu-item{ margin-bottom: 20px; }
+  .edu-item:last-child{ margin-bottom: 0; }
+  .edu-item .period{ font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); display:block; margin-bottom: 4px;}
+  .edu-item h3{ font-family: var(--serif); font-weight: 500; font-size: 1.05rem; margin: 0 0 2px; }
+  .edu-item .school{ color: var(--text-muted); font-size: 0.92rem; }
+
+  #languages .skill-tags span{ color: var(--text); }
+
+  footer{ border-top: 1px solid var(--border); padding: 56px 0 40px; }
+  footer h2{ font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin: 0 0 10px; }
+  footer p{ color: var(--text-muted); max-width: 46ch; margin: 0 0 26px; }
+  .contact-links{ display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 40px; }
+  .contact-links a{ text-decoration: none; font-size: 0.95rem; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: border-color .15s ease, color .15s ease; }
+  .contact-links a:hover{ border-color: var(--accent); color: var(--accent); }
+  .fine-print{ font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); opacity: .7; }
+
+  @media (max-width: 720px){
+    .wrap{ padding: 0 20px; }
+    .hero{ grid-template-columns: 1fr; padding: 44px 0 48px; gap: 32px; }
+    .hero h1{ font-size: clamp(2rem, 8vw, 2.6rem); }
+    .hero p.tagline{ max-width: none; font-size: 1rem; }
+    .hero-actions .btn{ flex: 1 1 auto; text-align: center; }
+
+    .nav-links{
+      display: none;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 20px 16px;
+    }
+    header.nav.open .nav-links{ display: flex; }
+    .nav-links a{ display: block; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1rem; }
+    .nav-links li:last-child a{ border-bottom: none; }
+    .menu-btn{ display: inline-flex; }
+
+    section{ padding: 40px 0; }
+    section h2{ font-size: 1.4rem; margin-bottom: 20px; }
+
+    .timeline{ padding-left: 20px; }
+    .job::before{ left: -24px; }
+    .job h3{ font-size: 1.05rem; }
+
+    .code-panel{ font-size: 0.72rem; padding: 16px 16px; }
+    .code-panel pre{ white-space: pre; }
+
+    .skill-tags span{ font-size: 0.8rem; padding: 5px 10px; }
+
+    footer{ padding: 40px 0 32px; }
+    footer h2{ font-size: 1.35rem; }
+    .contact-links{ flex-direction: column; gap: 14px; margin-bottom: 30px; }
+    .contact-links a{ display: inline-block; }
+  }
+
+  @media (max-width: 420px){
+    .wrap{ padding: 0 16px; }
+    .nav-inner{ padding: 12px 16px; }
+    .hero h1{ font-size: 1.85rem; }
+    .code-panel{ font-size: 0.66rem; }
+  }
+</style>
 </head>
 <body>
 
 <header class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="#top">[ten-ban]</a>
+    <a class="nav-logo" href="#top">hanam.dev</a>
     <ul class="nav-links">
-      <li><a href="#about">Giới thiệu</a></li>
-      <li><a href="#skills">Kỹ năng</a></li>
-      <li><a href="#experience">Kinh nghiệm</a></li>
-      <li><a href="#projects">Dự án</a></li>
-      <li><a href="#contact">Liên hệ</a></li>
+      <li><a href="#about" data-vi="Giới thiệu" data-en="About">Giới thiệu</a></li>
+      <li><a href="#skills" data-vi="Kỹ năng" data-en="Skills">Kỹ năng</a></li>
+      <li><a href="#experience" data-vi="Kinh nghiệm" data-en="Experience">Kinh nghiệm</a></li>
+      <li><a href="#education" data-vi="Học vấn" data-en="Education">Học vấn</a></li>
+      <li><a href="#certificates" data-vi="Chứng chỉ" data-en="Certificates">Chứng chỉ</a></li>
+      <li><a href="#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
     </ul>
+    <div class="nav-right">
+      <div class="nav-controls">
+        <button class="ctrl-btn theme-btn" id="themeToggle" title="Đổi giao diện sáng/tối" aria-label="Toggle theme">🌙</button>
+        <button class="ctrl-btn" id="langToggle" title="Chuyển ngôn ngữ" aria-label="Toggle language">EN</button>
+      </div>
+      <button class="menu-btn" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
   </div>
 </header>
 
 <div class="wrap" id="top">
 
-  <!-- ================= HERO ================= -->
   <section class="hero" style="border-top:none;">
     <div>
-      <p class="hero-role">frontend developer</p>
-      <h1>[Tên bạn]<br>xây dựng giao diện web.</h1>
-      <p class="tagline">
-        [Một câu mô tả ngắn gọn về bạn — ví dụ: 3 năm kinh nghiệm xây dựng
-        giao diện web nhanh, dễ tiếp cận với React và TypeScript.]
+      <p class="hero-role" data-vi="frontend developer" data-en="frontend developer">frontend developer</p>
+      <h1>
+        <span>Ha Nam Huynh Nguyen</span><br>
+        <span data-vi="xây dựng giao diện web." data-en="building web interfaces.">xây dựng giao diện web.</span>
+      </h1>
+      <p class="tagline" data-vi="Là một người trẻ năng động, tôi luôn muốn trải nghiệm và khám phá thế giới. Công việc IT là một phần trong cuộc sống của tôi, luôn thôi thúc tôi tiến về phía trước." data-en="As an active young person, I want to experience and explore the world. IT work is a part of my life and keeps me thinking about moving forward.">
+        Là một người trẻ năng động, tôi luôn muốn trải nghiệm và khám phá thế giới.
+        Công việc IT là một phần trong cuộc sống của tôi, luôn thôi thúc tôi tiến về phía trước.
       </p>
       <div class="hero-actions">
-        <a class="btn primary" href="#contact">Liên hệ với tôi</a>
-        <a class="btn" href="/cv-ten-ban.pdf" target="_blank" rel="noopener">Tải CV (PDF)</a>
+        <a class="btn primary" href="#contact" data-vi="Liên hệ với tôi" data-en="Get in touch">Liên hệ với tôi</a>
+        <a class="btn" href="mailto:hanamhndev@gmail.com" data-vi="Email cho tôi" data-en="Email me">Email cho tôi</a>
       </div>
     </div>
 
     <div class="code-panel">
 <pre><span class="ln">1</span><span class="kw">const</span> developer = {
-<span class="ln">2</span>  <span class="prop">name</span>: <span class="str">"Tên Bạn"</span>,
-<span class="ln">3</span>  <span class="prop">role</span>: <span class="str">"Frontend Developer"</span>,
-<span class="ln">4</span>  <span class="prop">location</span>: <span class="str">"Đà Nẵng, VN"</span>,
-<span class="ln">5</span>  <span class="prop">stack</span>: [<span class="str">"React"</span>, <span class="str">"TypeScript"</span>],
-<span class="ln">6</span>  <span class="prop">openTo</span>: <span class="str">"cơ hội mới"</span>,
+<span class="ln">2</span>  <span class="prop">name</span>: <span class="str">"Ha Nam Huynh Nguyen"</span>,
+<span class="ln">3</span>  <span class="prop">role</span>: <span class="str">"Front End Developer"</span>,
+<span class="ln">4</span>  <span class="prop">location</span>: <span class="str">"Hai Chau, Da Nang"</span>,
+<span class="ln">5</span>  <span class="prop">stack</span>: [<span class="str">"React"</span>, <span class="str">"Next.js"</span>, <span class="str">"TypeScript"</span>],
+<span class="ln">6</span>  <span class="prop">motto</span>: <span class="str">"work hard, play hard"</span>,
 <span class="ln">7</span>};</pre>
     </div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
   <section id="about">
     <p class="eyebrow">01</p>
-    <h2>Giới thiệu</h2>
-    <p>
-      [Viết 2–4 câu về hành trình làm frontend của bạn: bạn bắt đầu thế nào,
-      bạn thích làm việc với loại sản phẩm nào, và điều gì khiến bạn khác biệt.
-      Ví dụ: <strong>Tôi tập trung vào việc biến thiết kế thành giao diện
-      mượt mà, dễ dùng và chạy nhanh</strong>, đồng thời luôn chú ý đến chi tiết nhỏ
-      trong trải nghiệm người dùng.]
+    <h2 data-vi="Giới thiệu" data-en="About">Giới thiệu</h2>
+    <p data-vi="Là một người trẻ năng động, tôi luôn muốn trải nghiệm và khám phá thế giới. Công việc IT là một phần trong cuộc sống của tôi và luôn khiến tôi nghĩ về việc tiến về phía trước." data-en="As an active young person, I want to experience and explore the world. IT work is a part of my life and keeps me thinking about moving forward.">
+      Là một người trẻ năng động, tôi luôn muốn trải nghiệm và khám phá thế giới.
+      Công việc IT là một phần trong cuộc sống của tôi và luôn khiến tôi nghĩ về
+      việc tiến về phía trước.
     </p>
+    <p class="quote">"WORK HARD, PLAY HARD"</p>
   </section>
 
-  <!-- ================= SKILLS ================= -->
   <section id="skills">
     <p class="eyebrow">02</p>
-    <h2>Kỹ năng</h2>
+    <h2 data-vi="Kỹ năng" data-en="Skills">Kỹ năng</h2>
 
     <div class="skill-group">
-      <div class="label">// ngôn ngữ</div>
+      <div class="label" data-vi="// ngôn ngữ &amp; nền tảng" data-en="// languages &amp; core">// ngôn ngữ &amp; nền tảng</div>
       <div class="skill-tags">
-        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>TypeScript</span>
+        <span>JavaScript</span><span>TypeScript</span><span>HTML</span><span>CSS</span>
       </div>
     </div>
 
     <div class="skill-group">
-      <div class="label">// framework &amp; thư viện</div>
+      <div class="label" data-vi="// framework &amp; thư viện" data-en="// frameworks &amp; libraries">// framework &amp; thư viện</div>
       <div class="skill-tags">
-        <span>React</span><span>Vue</span><span>Next.js</span><span>Tailwind CSS</span>
+        <span>ReactJS</span><span>Next.js</span><span>Redux</span><span>Recoil</span><span>TailwindCSS</span><span>Bootstrap</span><span>Materialize CSS</span><span>Angular</span>
       </div>
     </div>
 
     <div class="skill-group">
-      <div class="label">// công cụ &amp; quy trình</div>
+      <div class="label" data-vi="// tiền xử lý CSS &amp; thiết kế" data-en="// css preprocessing &amp; design">// tiền xử lý CSS &amp; thiết kế</div>
       <div class="skill-tags">
-        <span>Git</span><span>Figma</span><span>Vite</span><span>Jest</span><span>CI/CD</span>
+        <span>LESS / SASS</span><span data-vi="Responsive Design" data-en="Responsive Design">Responsive Design</span><span data-vi="UX/UI Design" data-en="UX/UI Design">UX/UI Design</span><span>Adobe Photoshop</span><span>Figma</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="label" data-vi="// công cụ &amp; kiểm thử" data-en="// tools &amp; testing">// công cụ &amp; kiểm thử</div>
+      <div class="skill-tags">
+        <span>Storybook</span><span>Jest / JUnit</span><span>Java</span><span>SQL</span><span>Python</span>
+      </div>
+    </div>
+
+    <div class="skill-group" id="languages">
+      <div class="label" data-vi="// ngôn ngữ giao tiếp" data-en="// spoken languages">// ngôn ngữ giao tiếp</div>
+      <div class="skill-tags">
+        <span data-vi="Tiếng Việt" data-en="Vietnamese">Tiếng Việt</span><span data-vi="Tiếng Anh" data-en="English">Tiếng Anh</span>
       </div>
     </div>
   </section>
 
-  <!-- ================= EXPERIENCE ================= -->
   <section id="experience">
     <p class="eyebrow">03</p>
-    <h2>Kinh nghiệm làm việc</h2>
+    <h2 data-vi="Kinh nghiệm làm việc" data-en="Work Experience">Kinh nghiệm làm việc</h2>
 
     <div class="timeline">
       <div class="job">
-        <span class="period">2023 — Hiện tại</span>
-        <h3>[Chức danh, ví dụ: Frontend Developer]</h3>
-        <span class="company">[Tên công ty]</span>
+        <span class="period">9/2023 — <span data-vi="Hiện tại" data-en="Present">Hiện tại</span></span>
+        <h3 data-vi="Front End Developer" data-en="Front End Developer">Front End Developer</h3>
+        <span class="company">FPT Software Danang</span>
         <ul>
-          <li>[Việc bạn đã làm và kết quả — ví dụ: xây dựng lại trang chủ, giảm 30% thời gian tải]</li>
-          <li>[Một thành tích khác, nêu con số cụ thể nếu có]</li>
+          <li data-vi="Tìm hiểu nghiệp vụ và quy trình làm việc của dự án, thực hiện task training" data-en="Understood the business and workflow of the project; completed task training">Tìm hiểu nghiệp vụ và quy trình làm việc của dự án, thực hiện task training</li>
+          <li data-vi="Nghiên cứu, đánh giá phạm vi ảnh hưởng khi thay đổi; xây dựng UT và FUT" data-en="Researched and investigated scope of impact; wrote UT and FUT">Nghiên cứu, đánh giá phạm vi ảnh hưởng khi thay đổi; xây dựng UT và FUT</li>
+          <li data-vi="Tech skill: ReactJS, Next.js, TypeScript, Hook, Redux · Test: Storybook, Jest" data-en="Tech skill: ReactJS, Next.js, TypeScript, Hook, Redux · Test: Storybook, Jest">Tech skill: ReactJS, Next.js, TypeScript, Hook, Redux · Test: Storybook, Jest</li>
+        </ul>
+
+        <div class="subrole">
+          <div class="subrole-title">BCustom_2026 <span style="color:var(--text-muted); font-weight:400;">· 01/2026 – 04/2026</span></div>
+          <ul>
+            <li data-vi="Phát triển và bảo trì hệ thống Job X — hệ thống hỗ trợ tuyển dụng, giúp tăng số lượng CV ứng tuyển từ người dùng cuối" data-en="Developed and maintained the Job X system — a recruitment support system to increase CV applications from end users">Phát triển và bảo trì hệ thống Job X — hệ thống hỗ trợ tuyển dụng, giúp tăng số lượng CV ứng tuyển từ người dùng cuối</li>
+            <li data-vi="Vai trò: BA · Tech: React, TypeScript, Java, Next.js" data-en="Role: BA · Tech: React, TypeScript, Java, Next.js">Vai trò: BA · Tech: React, TypeScript, Java, Next.js</li>
+          </ul>
+        </div>
+
+        <div class="subrole">
+          <div class="subrole-title">ACustomer_2026 <span style="color:var(--text-muted); font-weight:400;">· 01/2026 – 02/2026</span></div>
+          <ul>
+            <li data-vi="Phát triển và nâng cấp hệ thống HR System — hệ thống hỗ trợ tìm việc" data-en="Developed and enhanced the HR System — a job-seeking support system">Phát triển và nâng cấp hệ thống HR System — hệ thống hỗ trợ tìm việc</li>
+            <li data-vi="Tạo Detail Design dựa trên Basic Design của khách hàng; triển khai coding và UT bằng Next.js, ReactJS, Jest; tạo và thực thi test case" data-en="Created Detail Design based on customer's Basic Design; implemented coding and UT using Next.js, ReactJS, Jest; created and executed test cases">Tạo Detail Design dựa trên Basic Design của khách hàng; triển khai coding và UT bằng Next.js, ReactJS, Jest; tạo và thực thi test case</li>
+            <li data-vi="Tech: Java, Next.js, ReactJS" data-en="Tech: Java, Next.js, ReactJS">Tech: Java, Next.js, ReactJS</li>
+          </ul>
+        </div>
+
+        <div class="subrole">
+          <div class="subrole-title">ACustomer_2025 <span style="color:var(--text-muted); font-weight:400;">· 10/2024 – 12/2025</span></div>
+          <ul>
+            <li data-vi="Phát triển thêm các chức năng cho hệ thống HR nhằm tăng khả năng ghép nối giữa người tìm việc và nhà tuyển dụng" data-en="Developed additional functions for the HR system to increase matching between job seekers and employers">Phát triển thêm các chức năng cho hệ thống HR nhằm tăng khả năng ghép nối giữa người tìm việc và nhà tuyển dụng</li>
+            <li data-vi="Nghiên cứu yêu cầu theo tài liệu khách hàng cung cấp; tạo RCP/X303/X250/Detail Design/Coding/FUT Test Case/FUT Execute" data-en="Studied requirements based on customer documentation; created RCP/X303/X250/Detail Design/Coding/FUT Test Case/FUT Execute">Nghiên cứu yêu cầu theo tài liệu khách hàng cung cấp; tạo RCP/X303/X250/Detail Design/Coding/FUT Test Case/FUT Execute</li>
+            <li data-vi="Tech: Spring Boot, Kotlin, Next.js, ReactJS, PostgreSQL · Test: JUnit, JEST" data-en="Tech: Spring Boot, Kotlin, Next.js, ReactJS, PostgreSQL · Test: JUnit, JEST">Tech: Spring Boot, Kotlin, Next.js, ReactJS, PostgreSQL · Test: JUnit, JEST</li>
+          </ul>
+        </div>
+
+        <div class="subrole">
+          <div class="subrole-title">ACustomer_2024 <span style="color:var(--text-muted); font-weight:400;">· 03/2024 – 10/2024</span></div>
+          <ul>
+            <li data-vi="Xây dựng lại ứng dụng web cho dịch vụ tìm việc của khách hàng H" data-en="Rebuilt the web application for a customer's job-seeking service">Xây dựng lại ứng dụng web cho dịch vụ tìm việc của khách hàng H</li>
+            <li data-vi="Tạo Detail Design dựa trên Basic Design; triển khai Coding và UT bằng React, Jest, Next.js; tạo và thực thi test case" data-en="Created Detail Design based on Basic Design; implemented Coding and UT using React, Jest, Next.js; created and executed test cases">Tạo Detail Design dựa trên Basic Design; triển khai Coding và UT bằng React, Jest, Next.js; tạo và thực thi test case</li>
+            <li data-vi="Tech: Struts, Java, Oracle 11g" data-en="Tech: Struts, Java, Oracle 11g">Tech: Struts, Java, Oracle 11g</li>
+          </ul>
+        </div>
+
+        <div class="subrole">
+          <div class="subrole-title">ACustomer ENH <span style="color:var(--text-muted); font-weight:400;">· 10/2023 – 03/2024</span></div>
+          <ul>
+            <li data-vi="Phát triển thêm chức năng cho hệ thống HR nhằm tăng khả năng ghép nối giữa người tìm việc và nhà tuyển dụng" data-en="Developed additional functions for the HR system to increase matching between job seekers and employers">Phát triển thêm chức năng cho hệ thống HR nhằm tăng khả năng ghép nối giữa người tìm việc và nhà tuyển dụng</li>
+            <li data-vi="Tạo detail design dựa trên basic design của khách hàng; triển khai coding và UT bằng Next.js, ReactJS, Jest; tạo và thực thi test case" data-en="Created detail design based on customer's basic design; implemented coding and UT using Next.js, ReactJS, Jest; created and executed test cases">Tạo detail design dựa trên basic design của khách hàng; triển khai coding và UT bằng Next.js, ReactJS, Jest; tạo và thực thi test case</li>
+            <li data-vi="Tech: Spring Boot, Kotlin, Next.js, ReactJS, PostgreSQL · Test: JUnit, JEST" data-en="Tech: Spring Boot, Kotlin, Next.js, ReactJS, PostgreSQL · Test: JUnit, JEST">Tech: Spring Boot, Kotlin, Next.js, ReactJS, PostgreSQL · Test: JUnit, JEST</li>
+          </ul>
+        </div>
+
+        <div class="subrole">
+          <div class="subrole-title">ACustomer_2023 <span style="color:var(--text-muted); font-weight:400;">· 09/2023 – 10/2023</span></div>
+          <ul>
+            <li data-vi="Xây dựng lại ứng dụng web cho dịch vụ tìm việc của khách hàng HR" data-en="Rebuilt the web application for an HR customer's job-seeking service">Xây dựng lại ứng dụng web cho dịch vụ tìm việc của khách hàng HR</li>
+            <li data-vi="Vai trò: Developer · Tech: Struts, Java, Oracle 11g" data-en="Role: Developer · Tech: Struts, Java, Oracle 11g">Vai trò: Developer · Tech: Struts, Java, Oracle 11g</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <span class="period">9/2019 — 9/2023</span>
+        <h3 data-vi="Front End Developer" data-en="Front End Developer">Front End Developer</h3>
+        <span class="company">Pasona Corporation</span>
+        <ul>
+          <li data-vi="Website tạo hồ sơ (profile website) cho khách hàng; hệ thống tuyển dụng cho phép ứng viên nộp CV qua profile website" data-en="Websites capable of generating profile websites for clients; recruitment systems allowing candidates to submit CVs via profile websites">Website tạo hồ sơ (profile website) cho khách hàng; hệ thống tuyển dụng cho phép ứng viên nộp CV qua profile website</li>
+          <li data-vi="Nghiên cứu, ứng dụng công nghệ mới (R&amp;D) để tạo sản phẩm" data-en="Researched and applied new technologies (R&amp;D) to build products">Nghiên cứu, ứng dụng công nghệ mới (R&amp;D) để tạo sản phẩm</li>
+          <li data-vi="Tham gia quy trình thiết kế (Figma, Photoshop)" data-en="Participated in design processes (Figma, Photoshop)">Tham gia quy trình thiết kế (Figma, Photoshop)</li>
+          <li data-vi="Thu thập yêu cầu khách hàng và xây dựng hệ thống tuyển dụng cho phép ứng viên nộp CV qua profile website" data-en="Gathered client requirements and built recruitment systems allowing candidates to submit CVs via profile websites">Thu thập yêu cầu khách hàng và xây dựng hệ thống tuyển dụng cho phép ứng viên nộp CV qua profile website</li>
+          <li data-vi="Bảo trì sản phẩm, sửa lỗi và triển khai các yêu cầu nâng cấp" data-en="Maintained products, fixed bugs, and implemented enhancement requests">Bảo trì sản phẩm, sửa lỗi và triển khai các yêu cầu nâng cấp</li>
+          <li data-vi="Tech: PHP (Laravel), Next.js, ReactJS" data-en="Tech: PHP (Laravel), Next.js, ReactJS">Tech: PHP (Laravel), Next.js, ReactJS</li>
         </ul>
       </div>
 
       <div class="job">
-        <span class="period">2021 — 2023</span>
-        <h3>[Chức danh]</h3>
-        <span class="company">[Tên công ty]</span>
+        <span class="period">8/2019 — 11/2019</span>
+        <h3 data-vi="Thực tập sinh" data-en="Intern">Thực tập sinh</h3>
+        <span class="company">Enable Startup Co.</span>
         <ul>
-          <li>[Mô tả công việc chính]</li>
-          <li>[Kết quả đạt được]</li>
+          <li data-vi="Test và đào tạo về ReactJS/JavaScript" data-en="Testing and training on ReactJS/JavaScript">Test và đào tạo về ReactJS/JavaScript</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <span class="period">3/2019 — 7/2019</span>
+        <h3 data-vi="Thực tập sinh" data-en="Intern">Thực tập sinh</h3>
+        <span class="company">SUN* Company</span>
+        <ul>
+          <li data-vi="Cắt giao diện HTML5, CSS3, SCSS, PUG Template và JavaScript" data-en="Cut HTML5, CSS3, SCSS, PUG templates and JavaScript">Cắt giao diện HTML5, CSS3, SCSS, PUG Template và JavaScript</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ================= PROJECTS ================= -->
-  <section id="projects">
+  <section id="education">
     <p class="eyebrow">04</p>
-    <h2>Dự án nổi bật</h2>
+    <h2 data-vi="Học vấn" data-en="Education">Học vấn</h2>
 
-    <div class="project">
-      <div class="project-head">
-        <h3>[Tên dự án 1]</h3>
-        <a class="link" href="#" target="_blank" rel="noopener">xem demo ↗</a>
-      </div>
-      <p>[Mô tả ngắn: dự án này giải quyết vấn đề gì, vai trò của bạn là gì.]</p>
-      <div class="stack">
-        <span>React</span><span>TypeScript</span><span>Tailwind</span>
-      </div>
-    </div>
-
-    <div class="project">
-      <div class="project-head">
-        <h3>[Tên dự án 2]</h3>
-        <a class="link" href="#" target="_blank" rel="noopener">xem mã nguồn ↗</a>
-      </div>
-      <p>[Mô tả ngắn về dự án thứ hai và kết quả cụ thể nếu có.]</p>
-      <div class="stack">
-        <span>Vue</span><span>Vite</span>
-      </div>
+    <div class="edu-item">
+      <span class="period">2016 — 2019</span>
+      <h3 data-vi="IT Engineer" data-en="IT Engineer">IT Engineer</h3>
+      <span class="school">Danang College of FPT Polytechnic — <span data-vi="Web Design, Kỹ sư Công nghệ thông tin" data-en="Web Design, Bachelor of Engineering">Web Design, Kỹ sư Công nghệ thông tin</span></span>
     </div>
   </section>
 
-  <!-- ================= EDUCATION ================= -->
-  <section id="education">
+  <section id="certificates">
     <p class="eyebrow">05</p>
-    <h2>Học vấn</h2>
-
-    <div class="edu-item">
-      <span class="period">2018 — 2022</span>
-      <h3>[Tên trường]</h3>
-      <span class="school">[Ngành học]</span>
+    <h2 data-vi="Chứng chỉ" data-en="Certificates">Chứng chỉ</h2>
+    <div class="skill-tags">
+      <span data-vi="Excel Skills for Business (Intermediate II)" data-en="Excel Skills for Business (Intermediate II)">Excel Skills for Business (Intermediate II)</span>
+      <span>EnglishScore</span>
+      <span data-vi="Java (Cơ bản)" data-en="Java (Basic)">Java (Cơ bản)</span>
+      <span data-vi="Angular (Cơ bản)" data-en="Angular (Basic)">Angular (Cơ bản)</span>
+      <span data-vi="JavaScript (Trung cấp)" data-en="JavaScript (Intermediate)">JavaScript (Trung cấp)</span>
+      <span data-vi="Problem Solving (Cơ bản)" data-en="Problem Solving (Basic)">Problem Solving (Cơ bản)</span>
+      <span data-vi="Python (Cơ bản)" data-en="Python (Basic)">Python (Cơ bản)</span>
+      <span data-vi="SQL (Cơ bản)" data-en="SQL (Basic)">SQL (Cơ bản)</span>
+      <span data-vi="CSS (Cơ bản)" data-en="CSS (Basic)">CSS (Cơ bản)</span>
+      <span data-vi="Frontend Developer (React)" data-en="Frontend Developer (React)">Frontend Developer (React)</span>
+      <span data-vi="Google Play Store Listing Certificate" data-en="Google Play Store Listing Certificate">Google Play Store Listing Certificate</span>
     </div>
   </section>
 
 </div>
 
-<!-- ================= CONTACT ================= -->
 <footer id="contact">
   <div class="wrap">
-    <h2>Cùng làm việc nhé.</h2>
-    <p>[Một câu mời liên hệ ngắn gọn — ví dụ: Nếu bạn đang tìm một frontend developer, hãy nhắn cho tôi.]</p>
+    <h2 data-vi="Cùng làm việc nhé." data-en="Let's work together.">Cùng làm việc nhé.</h2>
+    <p data-vi="Nếu bạn đang tìm một Frontend Developer, hãy nhắn cho tôi." data-en="If you're looking for a Frontend Developer, feel free to reach out.">Nếu bạn đang tìm một Frontend Developer, hãy nhắn cho tôi.</p>
     <div class="contact-links">
-      <a href="mailto:ban@example.com">ban@example.com</a>
-      <a href="https://github.com/username" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://linkedin.com/in/username" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:hanamhndev@gmail.com">hanamhndev@gmail.com</a>
+      <a href="tel:+84963126395">(+84) 963 126 395</a>
+      <a href="https://github.com/coderdn95" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/coderdn95/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-    <p class="fine-print">© 2026 [Tên bạn]. Được build bằng HTML/CSS thuần, host trên GitHub Pages.</p>
+    <p class="fine-print" data-vi="© 2026 Ha Nam Huynh Nguyen · Hai Chau District, Da Nang, Vietnam" data-en="© 2026 Ha Nam Huynh Nguyen · Hai Chau District, Da Nang, Vietnam">© 2026 Ha Nam Huynh Nguyen · Hai Chau District, Da Nang, Vietnam</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeToggle');
+  var langBtn = document.getElementById('langToggle');
+
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    try{ localStorage.setItem('cv-theme', theme); }catch(e){}
+  }
+
+  function applyLang(lang){
+    root.setAttribute('lang', lang);
+    langBtn.textContent = lang === 'vi' ? 'EN' : 'VI';
+    var nodes = document.querySelectorAll('[data-vi][data-en]');
+    nodes.forEach(function(el){
+      var val = lang === 'vi' ? el.getAttribute('data-vi') : el.getAttribute('data-en');
+      if(val.indexOf('<') !== -1){
+        el.innerHTML = val;
+      } else {
+        el.textContent = val;
+      }
+    });
+    try{ localStorage.setItem('cv-lang', lang); }catch(e){}
+  }
+
+  var currentTheme = root.getAttribute('data-theme') || 'dark';
+  applyTheme(currentTheme);
+
+  var currentLang = root.getAttribute('lang') || 'vi';
+  applyLang(currentLang);
+
+  themeBtn.addEventListener('click', function(){
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+
+  langBtn.addEventListener('click', function(){
+    var next = root.getAttribute('lang') === 'vi' ? 'en' : 'vi';
+    applyLang(next);
+  });
+
+  var navHeader = document.querySelector('header.nav');
+  var menuBtn = document.getElementById('menuToggle');
+  if(menuBtn && navHeader){
+    menuBtn.addEventListener('click', function(){
+      var isOpen = navHeader.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    document.querySelectorAll('.nav-links a').forEach(function(link){
+      link.addEventListener('click', function(){
+        navHeader.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
