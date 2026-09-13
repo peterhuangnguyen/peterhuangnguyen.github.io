@@ -707,7 +707,14 @@
       }
 
       header.nav {
+        position: sticky;
         top: 3px;
+        z-index: 10;
+        transition: top 0.18s ease;
+      }
+
+      header.nav.is-scrolled {
+        top: 0;
       }
 
       .hero-role,
@@ -1464,6 +1471,14 @@
         });
 
         var navHeader = document.querySelector("header.nav");
+        function updateHeaderOnScroll() {
+          navHeader.classList.toggle("is-scrolled", window.scrollY > 3);
+        }
+
+        window.addEventListener("scroll", updateHeaderOnScroll, {
+          passive: true,
+        });
+        updateHeaderOnScroll();
         var menuBtn = document.getElementById("menuToggle");
         if (menuBtn && navHeader) {
           menuBtn.addEventListener("click", function () {
