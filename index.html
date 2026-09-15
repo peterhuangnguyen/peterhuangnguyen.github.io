@@ -692,7 +692,31 @@
       </div>
     </footer>
 
-    <script src="./main.js"></script>
+    <div class="scroll-top-container">
+      <button
+        id="scrollTopBtn"
+        class="message-fab scroll-top-btn"
+        aria-label="Cuộn lên đầu trang"
+        title="Cuộn lên đầu trang"
+      >
+        <!-- Icon mũi tên lên đẹp, màu đen -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8 3.293l4.646 4.647a.5.5 0 0 1-.708.708L8 4.707l-3.938 3.941a.5.5 0 0 1-.708-.708L8 3.293z"
+          />
+          <path
+            d="M8 4.707V13.5a.5.5 0 0 1-1 0V4.707l-3.938 3.941a.5.5 0 0 1-.708-.708l4.646-4.647a.5.5 0 0 1 .708 0l4.646 4.647a.5.5 0 0 1-.708.708L8 4.707z"
+          />
+        </svg>
+      </button>
+    </div>
+
     <div class="floating-messages" aria-label="Liên hệ nhanh">
       <a
         class="message-fab"
@@ -726,5 +750,6 @@
         />
       </a>
     </div>
+    <script src="./main.js"></script>
   </body>
 </html>
